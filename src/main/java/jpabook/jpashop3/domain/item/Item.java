@@ -32,7 +32,7 @@ public abstract class Item {
      * 재고수량을 증가하는 로직
      */
     public void addStock(int quantity) {
-        this.stockQuantity = quantity;
+        this.stockQuantity += quantity;
     }
 
     /**
