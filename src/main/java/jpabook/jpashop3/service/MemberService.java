@@ -45,4 +45,16 @@ public class MemberService {
         return memberRepository.findOne(memberId);
     }
 
+    /**
+     * return 값을 Member로 해도 됨. 하지만 우리는 쿼리와 커맨드를 구분하는게 좋음.
+     * update는 커맨드임(변경성 메서드).
+     * 그러나 Member를 리턴하게 되면 Member를 쿼리(조회 메서드)하게 됨.
+     * 하지만 id값 정도는 리턴해도 좋음. 변경된 값을 찾을수도 있으니.
+     */
+    @Transactional
+    public void update(Long id, String name) {
+        Member member = memberRepository.findOne(id);
+        member.setName(name);
+
+    }
 }
