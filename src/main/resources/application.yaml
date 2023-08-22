@@ -7,7 +7,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: none # 테이블 드랍 안하고 그대로 남아있음.
+      ddl-auto: create
     properties:
       hibernate:
 #        show_sql: true  # 얘 주석 처리 하는 이유는 얘는 system out으로 로그를 찍음.
