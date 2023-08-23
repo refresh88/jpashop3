@@ -49,7 +49,7 @@ public class OrderController {
     public String orderList(@ModelAttribute("orderSearch") OrderSearch orderSearch, Model model) {
 
         // 단순히 service에서 위임만 하는거라면 걍 repository 불러도 됨.(조회인 경우)
-        // orderRepository.findAllByCriteria(orderSearch);
+        // orderRepository.findAllByString(orderSearch);
         List<Order> orders = orderService.findOrders(orderSearch);
         model.addAttribute("orders", orders);
 
