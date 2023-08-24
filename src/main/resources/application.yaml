@@ -12,6 +12,7 @@ spring:
       hibernate:
 #        show_sql: true  # 얘 주석 처리 하는 이유는 얘는 system out으로 로그를 찍음.
         format_sql: true
+        default_batch_fetch_size: 100
 
 logging:
   level:
