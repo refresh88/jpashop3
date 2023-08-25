@@ -4,9 +4,12 @@ import jpabook.jpashop3.domain.Address;
 import jpabook.jpashop3.domain.Order;
 import jpabook.jpashop3.domain.OrderItem;
 import jpabook.jpashop3.domain.OrderStatus;
+import jpabook.jpashop3.repository.MemberRepository;
 import jpabook.jpashop3.repository.OrderRepository;
 import jpabook.jpashop3.repository.OrderSearch;
 import jpabook.jpashop3.repository.Result;
+import jpabook.jpashop3.repository.order.query.OrderQueryDto;
+import jpabook.jpashop3.repository.order.query.OrderQueryRepository;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +28,7 @@ import static java.util.stream.Collectors.*;
 public class OrderApiController {
 
     private final OrderRepository orderRepository;
+    private final OrderQueryRepository orderQueryRepository;
 
     @GetMapping("/api/v1/orders")
     public List<Order> ordersV1() {
@@ -71,6 +75,13 @@ public class OrderApiController {
         return new Result(result);
     }
 
+    @GetMapping("/api/v4/orders")
+    public Result orderV4() {
+
+        List<OrderQueryDto> result = orderQueryRepository.findOrderQueryDtos();
+        return new Result(result);
+    }
+
     @Data
     static class OrderDto {
 
@@ -82,7 +93,7 @@ public class OrderApiController {
         // Dto 안에 엔티티도 있으면 안됨..
         // Dto는 엔티티에 대한 의존이 전혀 없어야함.
         // OrderItem 마저도 Dto로 바꿔야함.
-        private List<OrderItemDto>  orderItems;
+        private List<OrderItemDto> orderItems;
 
         public OrderDto(Order order) {
             orderId = order.getId();
