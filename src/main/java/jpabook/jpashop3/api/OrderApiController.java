@@ -4,7 +4,6 @@ import jpabook.jpashop3.domain.Address;
 import jpabook.jpashop3.domain.Order;
 import jpabook.jpashop3.domain.OrderItem;
 import jpabook.jpashop3.domain.OrderStatus;
-import jpabook.jpashop3.repository.MemberRepository;
 import jpabook.jpashop3.repository.OrderRepository;
 import jpabook.jpashop3.repository.OrderSearch;
 import jpabook.jpashop3.repository.Result;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
 
@@ -48,6 +46,7 @@ public class OrderApiController {
     @GetMapping("/api/v2/orders")
     public Result ordersV2() {
         List<Order> orders = orderRepository.findAllByString(new OrderSearch());
+
         List<OrderDto> result = orders.stream()
                 .map(OrderDto::new)
                 .collect(toList());
@@ -55,13 +54,16 @@ public class OrderApiController {
         return new Result(result);
     }
 
+
     @GetMapping("/api/v3/orders")
     public Result ordersV3() {
+
         List<Order> orders = orderRepository.findAllWithItem();
 
         List<OrderDto> result = orders.stream()
                 .map(OrderDto::new)
                 .collect(toList());
+
         return new Result(result);
     }
 
